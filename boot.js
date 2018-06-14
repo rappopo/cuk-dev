@@ -8,16 +8,15 @@ module.exports = function(cuk) {
 
   pkg.trace('Initializing...')
   const context = {
-    cuk: cuk,
     helper: cuk.lib.helper
   }
 
   pkg.trace('Context » %s', _.keys(context).join(', '))
 
   replify({
-    name: 'cuk',
+    name: 'dev',
     path: path.join(cuk.dir.data, 'tmp')
-  }, {}, context)
+  }, cuk, context)
 
 
   return Promise.resolve(true)
