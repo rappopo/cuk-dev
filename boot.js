@@ -3,15 +3,14 @@
 const replify = require('replify')
 
 module.exports = function(cuk) {
-  const { path, _ } = cuk.lib
+  const { path, _, helper } = cuk.lib
   const pkg = cuk.pkg.dev
 
-  pkg.trace('Initializing...')
   const context = {
     helper: cuk.lib.helper
   }
 
-  pkg.trace('Context » %s', _.keys(context).join(', '))
+  helper('core:bootTrace')('%A Exported context %K cuk, %s', null, null, _.keys(context).join(', '))
 
   replify({
     name: 'dev',
