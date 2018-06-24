@@ -6,7 +6,6 @@ module.exports = function(cuk) {
     method: {
       findOne: {
         handler: ctx => {
-          a = 2
           return {
             success: true,
             data: {
