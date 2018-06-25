@@ -14,6 +14,12 @@ module.exports = function(cuk) {
             }
           }
         }
+      },
+      create: {
+        middleware: 'http:bodyParser',
+        handler: ctx => {
+          return { success: true, data: { ok: true }}
+        }
       }
     }
   }
