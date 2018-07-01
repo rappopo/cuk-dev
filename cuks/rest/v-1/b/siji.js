@@ -6,8 +6,8 @@ module.exports = function(cuk) {
   return {
     method: {
       findOne: {
-        middleware: 'i18n:translation',
         handler: ctx => {
+          var a = ctx.__('dev:key', 'KUNCI 1', 'KUNCI 2', 'KUNCI 3')
           return {
             success: true,
             data: {
@@ -20,9 +20,6 @@ module.exports = function(cuk) {
       create: {
         middleware: 'http:uploadAny',
         handler: ctx => {
-          console.log(ctx.req.body)
-          console.log(ctx.req.files)
-          console.log(ctx.request.body)
           return { success: true, data: { ok: true }}
         }
       }
