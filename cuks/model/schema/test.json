@@ -1,0 +1,6 @@
+{
+  "attributes": {
+    "one": { "type": "string" },
+    "two": { "type": "string" }
+  }
+}
