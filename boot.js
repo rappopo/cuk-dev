@@ -10,7 +10,7 @@ module.exports = function(cuk) {
     helper: cuk.pkg.core.lib.helper
   }
 
-  helper('core:bootTrace')('%A Exported context %K cuk, %s', null, null, _.keys(context).join(', '))
+  helper('core:bootTrace')('|  |- Exported context => cuk, %s', _.keys(context).join(', '))
 
   replify({
     name: 'dev',
