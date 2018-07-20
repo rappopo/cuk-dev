@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "data": [{
+    "one": "siji",
+    "two": 2,
+    "three": ["telu", 4, 5]
+  }, {
+    "one": "setunggal",
+    "two": 2,
+    "three": ["tigo", 4, 5]
+  }]
+}
