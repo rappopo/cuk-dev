@@ -1,4 +1,4 @@
-{% extends 'view:/layout.html' %}
+{% extends 'view:/layout' %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ viewCfg('static').common.mount }}/dev/bootstrap/kitchen_sink.css">
@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block navbar %}
-  {% include 'dev:/bootstrap/kitchen_sink_navbar.html' %}
+  {% include 'dev:/bootstrap/kitchen_sink_navbar' %}
 {% endblock %}
 
 {% block content %}
