@@ -4,7 +4,7 @@ module.exports = function(cuk) {
 
   return {
     handler: ctx => {
-      ctx.render('dev:/test')
+      ctx.render('dev:/component')
     }
   }
 

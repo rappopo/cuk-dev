@@ -1,0 +1,220 @@
+{% extends 'view:/layout' %}
+{% set context = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'] %}
+{% block style %}
+<style>
+h2 {
+  padding-top: 2em;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>cmpt('alert')</h2>
+{% set alert1 %}
+  {% for c in context %}
+    {{ cmpt('alert', { content: _.upperFirst(c), context: c }) }}
+  {% endfor %}
+{% endset %}
+{% set alert2 %}
+  {% for c in context %}
+    {{ cmpt('alert', { content: _.upperFirst(c), context: c, dismissable: true }) }}
+  {% endfor %}
+{% endset %}
+{{
+  cmpt('grid', {
+    rows: [
+      ['Default', 'Dismissable'],
+      [alert1, alert2]
+    ]
+  })
+}}
+
+<h2>cmpt('badge')</h2>
+{% set badge1 %}
+  {% for c in context %}
+    {{ cmpt('badge', { content: _.upperFirst(c), context: c }) }}
+  {% endfor %}
+{% endset %}
+{% set badge2 %}
+  {% for c in context %}
+    {{ cmpt('badge', { content: _.upperFirst(c), context: c, pill: true }) }}
+  {% endfor %}
+{% endset %}
+{{
+  cmpt('grid', {
+    rows: [
+      ['Default', 'Pill'],
+      [badge1, badge2]
+    ]
+  })
+}}
+
+<h2>cmpt('breadcrumb')</h2>
+{{
+  cmpt('breadcrumb', {
+    items: [
+      { text: 'Home' },
+      { text: 'About' },
+      { text: 'Us', href: '#', active: true }
+    ]
+  })
+}}
+<h2>cmpt('button')</h2>
+{% set btn1 %}
+  {% for c in context %}
+    {{ cmpt('button', { title: _.upperFirst(c), context: c, cls: 'mb-1' }) }}
+  {% endfor %}
+{% endset %}
+{% set btn2 %}
+  {% for c in context %}
+    {{ cmpt('button', { title: _.upperFirst(c), context: c, outline: true, cls: 'mb-1' }) }}
+  {% endfor %}
+{% endset %}
+{{
+  cmpt('grid', {
+    rows: [
+      ['Default', 'Outline'],
+      [btn1, btn2],
+      [
+        cmpt('button', { title: 'Block', block: true }),
+        cmpt('button', { title: 'Block', block: true, outline: true })
+      ]
+    ]
+  })
+}}
+
+<h2>cmpt('buttonGroup')</h1>
+{{
+  cmpt('grid', {
+    rows: [[
+      cmpt('buttonGroup', {
+        buttons: [
+          cmpt('button', { title: 'One', context: 'primary' }),
+          cmpt('button', { title: 'Two', context: 'primary' }),
+          cmpt('button', { title: 'Three', context: 'primary' }),
+          cmpt('button', { title: 'Four', context: 'primary' })
+        ]
+      }),
+      cmpt('buttonGroup', {
+        buttons: [
+          cmpt('button', { title: 'One', context: 'primary' }),
+          cmpt('button', { title: 'Two', context: 'primary' })
+        ],
+        stacked: true
+      })
+    ]]
+  })
+}}
+
+<h2>cmpt('buttonToolbar')</h2>
+{{
+  cmpt('buttonToolbar', {
+    groups: [
+      cmpt('buttonGroup', {
+        buttons: [
+          cmpt('button', { title: 'One', context: 'primary' }),
+          cmpt('button', { title: 'Two', context: 'primary' }),
+          cmpt('button', { title: 'Three', context: 'primary' })
+        ],
+        cls: 'mr-1'
+      }),
+      cmpt('buttonGroup', {
+        buttons: [
+          cmpt('button', { title: 'Four', context: 'primary' })
+        ],
+        cls: 'mr-1'
+      }),
+      cmpt('buttonGroup', {
+        buttons: [
+          cmpt('button', { title: 'Five', context: 'primary' }),
+          cmpt('button', { title: 'Six', context: 'primary' })
+        ]
+      })
+    }
+  })
+}}
+
+<h2>cmpt('dropdown')</h2>
+{%
+set menu = [
+  { text: 'Menu 1' },
+  { text: 'Menu 2', disabled: true },
+  { divider: true },
+  { text: 'Menu 3' }
+]
+%}
+{{
+  cmpt('grid', {
+    rows: [
+      {
+        cls: 'mb-1',
+        cols: [
+          cmpt('dropdown', { title: 'Default', menu: menu }),
+          cmpt('dropdown', { title: 'Drop Up', context: 'success', dir: 'up', menu: menu }),
+          cmpt('dropdown', { title: 'Drop Right', context: 'danger', dir: 'right', menu: menu }),
+          cmpt('dropdown', { title: 'Drop Left', context: 'info', dir: 'left', menu: menu })
+        ]
+      },
+      [
+        cmpt('dropdown', { title: 'Button Split', split: true, menu: menu }),
+        cmpt('dropdown', { title: 'Menu Category', menu: {
+            'First Category': ['Menu 1', 'Menu 2', 'Menu 3'],
+            'Second Category': ['Menu 4', 'Menu 5']
+          }
+        }),
+        {
+          width: 6,
+          content: cmpt('dropdown', { title: 'Right Aligned', align: 'right', menu: menu })
+        }
+      ]
+    ],
+    wrapper: true,
+    wrapperFullWidth: true
+  })
+}}
+
+<h2>cmpt('formText')</h2>
+<form>
+  {{ cmpt('formText', { name: 'text1', label: 'Default' }) }}
+  {{ cmpt('formText', { name: 'text2', label: 'With Info', hint: 'Please enter your name' }) }}
+  {{ cmpt('formText', { name: 'text3', readOnly: true, value: 'James Bond', label: 'Read Only' }) }}
+  {{ cmpt('formText', { stacked: true, name: 'text4', value: 'With Value', label: 'Stacked' }) }}
+  {{ cmpt('formText', { name: 'text5', plainText: true, value: 'Jason Born', label: 'Plain Text' }) }}
+  {{ cmpt('formText', { width: '4:8', name: 'text6', label: 'Custom Width' }) }}
+</form>
+
+<h2>cmpt('formText') - Inline</h2>
+<form class="form-inline">
+  {{ cmpt('formText', { name: 'texti1', placeHolder: 'Username', label: 'Username', labelCls: 'sr-only' }) }}
+  {{ cmpt('formText', { cls: 'mx-sm-3', name: 'texti2', type: 'password', placeHolder: 'Password', label: 'Password', labelCls: 'sr-only' }) }}
+  {{ cmpt('button', { title: 'Submit', context: 'primary' }) }}
+</form>
+
+<h2>cmpt('formTextarea')</h2>
+<form>
+  {{ cmpt('formTextarea', { name: 'textarea1', value: 'Value', label: 'Default Horizontal' }) }}
+  {{ cmpt('formTextarea', { name: 'textarea2', rows: 5, label: '5 Rows' }) }}
+</form>
+
+<h2>cmpt('formSelect')</h2>
+<form>
+  {% set values = { option1: 'Option 1', option2: 'Option 2', option3: 'Option 3', option4: 'Option 4' } %}
+  {{ cmpt('formSelect', { name: 'select1', values: values, label: 'Default Horizontal' }) }}
+  {{ cmpt('formSelect', { name: 'select2', values: values, custom: true, label: 'Custom Select' }) }}
+  {{ cmpt('formSelect', { name: 'select3', values: values, choose: true, label: 'With choose record' }) }}
+  {{ cmpt('formSelect', { name: 'select4', values: values, choose: true, value: 'option2', label: 'With selected' }) }}
+  {{ cmpt('formSelect', { name: 'select5', values: values, rows: 3, multiple: true, value: ['option1', 'option2'], label: 'Multiple + size' }) }}
+</form>
+
+<h2>cmpt('formRange')</h2>
+<form>
+  {{ cmpt('formRange', { name: 'range1', value: 10 , label: 'Range' }) }}
+  {{ cmpt('formRange', { name: 'range2', value: 30, custom: true, label: 'Custom Range' }) }}
+</form>
+
+<h2>cmpt('formFile')</h2>
+<form>
+{{ cmpt('formFile', { name: 'file1', label: 'File Upload' }) }}
+</form>
+
+{% endblock %}
