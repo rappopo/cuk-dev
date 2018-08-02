@@ -190,6 +190,30 @@ set menu = [
   {{ cmpt('button', { title: 'Submit', context: 'primary' }) }}
 </form>
 
+<h2>cmpt('formRadio')</h2>
+{% set radios1 = [{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }, { label: 'Three', value: 'three' }] %}
+{% set radios2 = [{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }, { label: 'Three', value: 'three' }] %}
+{% set radios3 = [{ id: 'r31', label: 'One', value: 'one' }, { id: 'r32', label: 'Two', value: 'two' }, { id: 'r33', label: 'Three', value: 'three' }] %}
+{% set radios4 = [{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }, { label: 'Three', value: 'three' }] %}
+<form>
+  {{ cmpt('formRadio', { name: 'radio1', label: 'Default', input: radios1 }) }}
+  {{ cmpt('formRadio', { name: 'radio2', label: 'Inline', inline: true, input: radios2 }) }}
+  {{ cmpt('formRadio', { name: 'radio3', label: 'Custom', custom: true, input: radios3 }) }}
+  {{ cmpt('formRadio', { name: 'radio4', label: 'Custom + Inline', custom: true, inline: true, input: radios4 }) }}
+</form>
+
+<h2>cmpt('formCheckbox')</h2>
+{% set checkboxes1 = [{ label: 'One', value: 'one' }, { label: 'Two', checked: true, value: 'two' }, { label: 'Three', value: 'three' }] %}
+{% set checkboxes2 = [{ label: 'One', value: 'one' }, { label: 'Two', checked: true, value: 'two' }, { label: 'Three', value: 'three' }] %}
+{% set checkboxes3 = [{ id: 'c31', label: 'One', value: 'one' }, { id: 'c32', label: 'Two', checked: true, value: 'two' }, { id: 'c33', label: 'Three', value: 'three' }] %}
+{% set checkboxes4 = [{ label: 'One', value: 'one' }, { label: 'Two', checked: true, value: 'two' }, { label: 'Three', value: 'three' }] %}
+<form>
+  {{ cmpt('formCheckbox', { name: 'cb1', label: 'Default', input: checkboxes1 }) }}
+  {{ cmpt('formCheckbox', { name: 'cb2', label: 'Inline', inline: true, input: checkboxes2 }) }}
+  {{ cmpt('formCheckbox', { name: 'cb3', label: 'Custom', custom: true, input: checkboxes3 }) }}
+  {{ cmpt('formCheckbox', { name: 'cb4', label: 'Custom + inline', custom: true, inline: true, input: checkboxes4 }) }}
+</form>
+
 <h2>cmpt('formTextarea')</h2>
 <form>
   {{ cmpt('formTextarea', { name: 'textarea1', value: 'Value', label: 'Default Horizontal' }) }}
@@ -214,7 +238,17 @@ set menu = [
 
 <h2>cmpt('formFile')</h2>
 <form>
-{{ cmpt('formFile', { name: 'file1', label: 'File Upload' }) }}
+  {{ cmpt('formFile', { name: 'file1', label: 'File Upload' }) }}
+  {{ cmpt('formFile', { name: 'file2', custom: true, label: 'Custom File Upload', placeHolder: 'Please select a file' }) }}
 </form>
 
+<h2>cmpt('inputGroup')</h2>
+<form>
+  {{ cmpt('inputGroup', { before: 'Before', name: 'ig1', value: 'Default', after: 'After', cls: 'mb-1' }) }}
+  {{ cmpt('inputGroup', { before: ['Multi', 'Columns'], input: [{ type: 'text', name: 'ig2', value: 'Multi' }, { type: 'text', name: 'ig3', value: 'Input' }], cls: 'mb-1' }) }}
+  {{ cmpt('inputGroup', { before: [{ type: 'button', title: 'Primary' }, { type: 'button', title: 'Danger', context: 'danger' }], name: 'ig4', value: 'With buttons', cls: 'mb-1' }) }}
+  {{ cmpt('inputGroup', { before: { title: 'Dropdown', context: 'dark', outline: true, type: 'dropdown', menu: menu }, name: 'ig5', value: 'here, there...', after: { title: 'Splitted', dir: 'up', align: 'right', context: 'dark', outline: true, split: true, type: 'dropdown', menu: menu }, cls: 'mb-1'  }) }}
+  {{ cmpt('inputGroup', { before: 'With select', input: { type: 'select', choose: true, values: values, name: 'ig6' }, cls: 'mb-1'  }) }}
+  {{ cmpt('inputGroup', { before: 'With file browser', input: { type: 'file', placeHolder: 'Choose a file', name: 'ig7' }, cls: 'mb-1'  }) }}
+</form>
 {% endblock %}
