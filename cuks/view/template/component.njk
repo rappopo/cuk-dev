@@ -5,6 +5,13 @@
 h2 {
   padding-top: 2em;
 }
+.form-check-label, .custom-control-label {
+  margin-top: 1px;
+}
+.form-check-inline .form-check-label {
+  margin-top: 3px;
+  margin-left: 2px;
+}
 </style>
 {% endblock %}
 
@@ -17,7 +24,7 @@ h2 {
 {% endset %}
 {% set alert2 %}
   {% for c in context %}
-    {{ cmpt('alert', { content: _.upperFirst(c), context: c, dismissable: true }) }}
+    {{ cmpt('alert', { content: _.upperFirst(c), context: c, dismiss: true }) }}
   {% endfor %}
 {% endset %}
 {{
@@ -32,12 +39,12 @@ h2 {
 <h2>cmpt('badge')</h2>
 {% set badge1 %}
   {% for c in context %}
-    {{ cmpt('badge', { content: _.upperFirst(c), context: c }) }}
+    {{ cmpt('badge', { text: _.upperFirst(c), context: c }) }}
   {% endfor %}
 {% endset %}
 {% set badge2 %}
   {% for c in context %}
-    {{ cmpt('badge', { content: _.upperFirst(c), context: c, pill: true }) }}
+    {{ cmpt('badge', { text: _.upperFirst(c), context: c, pill: true }) }}
   {% endfor %}
 {% endset %}
 {{
@@ -59,6 +66,7 @@ h2 {
     ]
   })
 }}
+
 <h2>cmpt('button')</h2>
 {% set btn1 %}
   {% for c in context %}
@@ -76,25 +84,48 @@ h2 {
       ['Default', 'Outline'],
       [btn1, btn2],
       [
-        cmpt('button', { title: 'Block', block: true }),
-        cmpt('button', { title: 'Block', block: true, outline: true })
+        cmpt('button', { title: 'Block', cls: 'mb-1', block: true }),
+        cmpt('button', { title: 'Block', cls: 'mb-1', block: true, outline: true })
+      ]
+    ]
+  })
+}}
+{{
+  cmpt('grid', {
+    rows: [
+      [
+        cmpt('button', { block: true, title: 'Tooltip On top', tt: 'Tooltip on top', cls: 'mb-1' }),
+        cmpt('button', { block: true, title: 'Tooltip On right', tt: 'Tooltip on right', ttDir: 'right', cls: 'mb-1' }),
+        cmpt('button', { block: true, title: 'Tooltip On bottom', tt: 'Tooltip on bottom', ttDir: 'bottom', cls: 'mb-1' }),
+        cmpt('button', { block: true, title: 'Tooltip On left', tt: 'Tooltip on left', ttDir: 'left', cls: 'mb-1' })
+      ]
+    ]
+  })
+}}
+{{
+  cmpt('grid', {
+    rows: [
+      [
+        cmpt('button', { block: true, cls: 'mb-1', poDir: 'bottom', title: 'Popover Default', po: 'Anim excepteur dolor aute anim sint adipisicing id labore ipsum duis consectetur occaecat.' }),
+        cmpt('button', { block: true, cls: 'mb-1', poDir: 'bottom', title: 'Popover With Title', poTitle: 'The title', po: 'Anim excepteur dolor aute anim sint adipisicing id labore ipsum duis consectetur occaecat.' }),
+        cmpt('button', { block: true, cls: 'mb-1', poDir: 'bottom', title: 'Popover Not Dismissable', poNoDismiss: true, poTitle: 'The title', po: 'Anim excepteur dolor aute anim sint adipisicing id labore ipsum duis consectetur occaecat.' })
       ]
     ]
   })
 }}
 
+
+
 <h2>cmpt('buttonGroup')</h1>
 {{
   cmpt('grid', {
     rows: [[
-      cmpt('buttonGroup', {
-        buttons: [
-          cmpt('button', { title: 'One', context: 'primary' }),
-          cmpt('button', { title: 'Two', context: 'primary' }),
-          cmpt('button', { title: 'Three', context: 'primary' }),
-          cmpt('button', { title: 'Four', context: 'primary' })
-        ]
-      }),
+      cmpt('buttonGroup', [
+        cmpt('button', { title: 'One', context: 'primary' }),
+        cmpt('button', { title: 'Two', context: 'primary' }),
+        { title: 'Three', context: 'success', disabled: true },
+        { title: 'Four', context: 'secondary' }
+      ]),
       cmpt('buttonGroup', {
         buttons: [
           cmpt('button', { title: 'One', context: 'primary' }),
@@ -108,29 +139,238 @@ h2 {
 
 <h2>cmpt('buttonToolbar')</h2>
 {{
-  cmpt('buttonToolbar', {
-    groups: [
-      cmpt('buttonGroup', {
-        buttons: [
-          cmpt('button', { title: 'One', context: 'primary' }),
-          cmpt('button', { title: 'Two', context: 'primary' }),
-          cmpt('button', { title: 'Three', context: 'primary' })
-        ],
-        cls: 'mr-1'
+  cmpt('buttonToolbar', [
+    {
+      buttons: [
+        { title: 'One', context: 'primary' },
+        cmpt('button', { title: 'Two', context: 'primary' }),
+        cmpt('button', { title: 'Three', context: 'primary' })
+      ],
+      cls: 'mr-1'
+    },
+    cmpt('buttonGroup', {
+      buttons: [
+        cmpt('button', { title: 'Four', context: 'primary' })
+      ],
+      cls: 'mr-1'
+    }),
+    cmpt('buttonGroup', {
+      buttons: [
+        cmpt('button', { title: 'Five', context: 'primary' }),
+        cmpt('button', { title: 'Six', context: 'primary' })
+      ]
+    })
+  ])
+}}
+
+<h2>compt('cmptCard')</h2>
+{{
+  cmpt('grid', {
+    rows: [
+      ['Basic', 'Header &amp; Footer', 'List', 'Mixed'],
+      [
+        cmpt('card', {
+          content: [
+            cmpt('cardImg', {
+              holder: '100px100'
+            }),
+            cmpt('cardBody', {
+              title: 'Card Title',
+              subtitle: 'Subtitle',
+              content: 'Id duis dolor ea eiusmod minim excepteur pariatur excepteur.'
+            })
+          ]
+        }),
+        cmpt('card', {
+          header: 'Header',
+          content: cmpt('cardBody', {
+            title: 'Card Title 2',
+            content: 'Id duis dolor ea eiusmod minim excepteur pariatur excepteur.'
+          }),
+          footer: 'Footer'
+        }),
+        cmpt('card', {
+          header: 'Featured:',
+          content: cmpt('listGroup', {
+            noBorder: true,
+            items: ['One', 'Two', 'Three']
+          })
+        }),
+        cmpt('card', {
+          cls: 'text-right',
+          borderColor: 'primary',
+          header: {
+            tag: 'h6',
+            context: 'primary',
+            textColor: 'white',
+            content: 'Styled header'
+          },
+          content: [
+            cmpt('cardBody', {
+              title: 'This is the title',
+              context: 'secondary',
+              content: 'Et id irure anim aliqua sint dolore.'
+            }),
+            cmpt('listGroup', {
+              noBorder: true,
+              items: ['One', 'Two', 'Three']
+            }),
+            cmpt('cardBody', {
+              content: cmpt('cardLink', { text: 'Link 1' }) + cmpt('cardLink', { text: 'Link 2' })
+            })
+          ]
+        })
+      ]
+    ]
+  })
+}}
+
+<h2>cmpt('cardGroup')</h2>
+{{
+  cmpt('cardGroup', [{
+    content: [
+      cmpt('cardImg', {
+        holder: '100px100'
       }),
-      cmpt('buttonGroup', {
-        buttons: [
-          cmpt('button', { title: 'Four', context: 'primary' })
-        ],
-        cls: 'mr-1'
+      cmpt('cardBody', {
+        title: 'Title Left',
+        content: 'Ullamco deserunt ipsum et et sit ipsum.'
+      })
+    ]
+  }, {
+    content: [
+      cmpt('cardImg', {
+        holder: '100px100'
       }),
-      cmpt('buttonGroup', {
-        buttons: [
-          cmpt('button', { title: 'Five', context: 'primary' }),
-          cmpt('button', { title: 'Six', context: 'primary' })
-        ]
+      cmpt('cardBody', {
+        title: 'Title Center',
+        content: 'Mollit reprehenderit dolore elit fugiat velit dolore cillum et amet duis id cillum ad.'
+      })
+    ]
+  }, {
+    content: [
+      cmpt('cardImg', {
+        holder: '100px100'
+      }),
+      cmpt('cardBody', {
+        title: 'Title Right',
+        content: 'Lorem nostrud cupidatat eiusmod eiusmod.'
+      })
+    ]
+  }])
+}}
+
+<h2>cmpt('cardDeck')</h2>
+{{
+  cmpt('cardDeck', [{
+    content: [
+      cmpt('cardImg', {
+        holder: '100px100'
+      }),
+      cmpt('cardBody', {
+        title: 'Title Left',
+        content: 'Ullamco deserunt ipsum et et sit ipsum.'
+      })
+    ]
+  }, {
+    content: [
+      cmpt('cardImg', {
+        holder: '100px100'
+      }),
+      cmpt('cardBody', {
+        title: 'Title Center',
+        content: 'Fugiat consequat culpa labore sint magna ut enim sit. Excepteur ea nostrud nisi ullamco deserunt dolor est nulla excepteur aliqua minim et. Exercitation ea tempor elit magna cillum culpa eu.'
+      })
+    ]
+  }, {
+    content: [
+      cmpt('cardImg', {
+        holder: '100px100'
+      }),
+      cmpt('cardBody', {
+        title: 'Title Right',
+        content: 'Lorem nostrud cupidatat eiusmod eiusmod. Deserunt fugiat ipsum ea elit aute ex. Nostrud magna non et ex commodo reprehenderit nulla eiusmod esse do veniam elit minim. Sit esse nulla esse exercitation labore. Aliquip et nostrud consectetur ad esse. Occaecat eiusmod irure eiusmod incididunt do laborum sint veniam. Id labore reprehenderit irure aliqua. Occaecat laboris sunt occaecat quis cillum ad.'
+      })
+    ]
+  }])
+}}
+
+<h2>cmpt('carousel')</h2>
+{%
+  set slides = [
+    { holder: true, alt: 'First Slide', title: '1', content: 'Culpa eiusmod adipisicing nulla quis esse sit enim eu ex reprehenderit consectetur adipisicing nisi.' },
+    { holder: true, alt: 'Second Slide', content: 'Labore cupidatat ea aliquip cupidatat.' },
+    { holder: true, alt: 'Third Slide', content: 'Do pariatur magna enim nisi reprehenderit nulla mollit id nulla.' }
+  ]
+%}
+{% set car1 = cmpt('carousel', { id: 'car1', content: slides }) %}
+{% set car2 = cmpt('carousel', { id: 'car2', control: true, content: slides }) %}
+{% set car3 = cmpt('carousel', { id: 'car3', control: true, indicator: true, content: slides }) %}
+{% set car4 = cmpt('carousel', { id: 'car4', control: true, caption: true, crossfade: true, content: slides }) %}
+{{
+  cmpt('grid', {
+    rows: [
+      ['Slider Only', 'With Control'],
+      [car1, car2],
+      ['Control + Indicator', 'With Caption + Crossfade'],
+      [car3, car4]
+    ]
+  })
+}}
+
+<h2>cmpt('collapse')</h2>
+{{
+  cmpt('collapse', {
+    trigger: [
+      { aTag: true, title: 'Link', target: '#one' },
+      { title: 'Button', target: '#one' }
+    ],
+    target: {
+      id: 'one',
+      content: cmpt('card', {
+        cls: 'mb-2',
+        content: cmpt('cardBody', {
+          content: 'Laborum minim adipisicing ex esse. Ipsum velit nostrud nisi anim est adipisicing elit reprehenderit minim ut laboris excepteur sint. Do laboris enim ad consequat elit commodo magna ullamco. Dolore ipsum sunt irure irure anim. Nulla excepteur laborum veniam incididunt elit adipisicing ullamco labore. Velit fugiat velit culpa nulla pariatur enim.'
+        })
       })
     }
+  })
+}}
+{{
+  cmpt('collapse', {
+    trigger: [
+      { aTag: true, title: 'First', target: '#mone' },
+      { title: 'Second', target: '#mtwo' },
+      { title: 'Both', target: '.multi-collapse' }
+    ],
+    target: [{
+      id: 'mone',
+      content: cmpt('card', {
+        content: cmpt('cardBody', {
+          content: 'Pariatur adipisicing laboris quis fugiat dolor nisi nisi. Dolor tempor dolor eu deserunt laborum nulla commodo excepteur Lorem laboris deserunt aute. Excepteur nulla do elit esse duis incididunt tempor id Lorem.'
+        })
+      })
+    }, {
+      id: 'mtwo',
+      content: cmpt('card', {
+        content: cmpt('cardBody', {
+          content: 'Fugiat enim laboris eiusmod non Lorem ea aliqua mollit duis nisi. Pariatur cupidatat do non reprehenderit duis veniam ea tempor ullamco. Ipsum est eiusmod velit dolore culpa proident sunt est. Eiusmod aliquip est consectetur occaecat dolore. Consectetur duis deserunt dolore ut quis. Eiusmod pariatur enim amet officia amet veniam adipisicing officia velit aliquip commodo et anim. Amet elit fugiat adipisicing consequat sint mollit fugiat cupidatat occaecat ea dolor consectetur.'
+        })
+      })
+    }]
+  })
+}}
+
+<h2>cmpt('accordion')</h2>
+{{
+  cmpt('accordion', {
+    id: 'acc',
+    active: 'acc1',
+    items: [
+      { id: 'acc1', title: 'One', content: 'Adipisicing culpa fugiat deserunt ad reprehenderit velit mollit labore ut elit excepteur. Deserunt nulla Lorem Lorem proident consectetur officia nisi. Veniam culpa do non laborum anim minim adipisicing proident in exercitation velit. Eiusmod qui consequat enim sint. Cillum nulla enim est aliqua dolor duis velit officia sunt. Id exercitation est deserunt sit aliqua consequat eu ex exercitation voluptate fugiat non eu exercitation. Non qui esse labore commodo reprehenderit excepteur incididunt est laboris exercitation.' },
+      { id: 'acc2', title: 'Two', content: 'Ipsum fugiat mollit in ipsum ullamco cupidatat proident commodo esse sit. Officia officia irure officia ut proident culpa occaecat occaecat nostrud. Excepteur sit et commodo est incididunt enim exercitation excepteur eiusmod laboris. Ut voluptate sit aute aute aliqua commodo aliqua reprehenderit.' },
+      { id: 'acc3', title: 'Three', content: 'Officia laboris ad anim ex aliquip adipisicing ex velit voluptate. Laboris est duis culpa incididunt cillum aute nostrud cillum dolore elit sint id sit. Consectetur reprehenderit magna aliquip do do ut non esse do. Consequat irure do consectetur adipisicing dolor elit voluptate in labore veniam. Commodo in elit cillum aliqua ea culpa veniam est. Ea non elit velit laboris cillum.' }
+    ]
   })
 }}
 
@@ -168,78 +408,79 @@ set menu = [
         }
       ]
     ],
-    wrapper: true,
-    wrapperFullWidth: true
+    wrapper: {
+      fullWidth: true
+    }
   })
 }}
 
-<h2>cmpt('formText')</h2>
+<h2>cmpt('formGroupInput')</h2>
 <form>
-  {{ cmpt('formText', { name: 'text1', label: 'Default' }) }}
-  {{ cmpt('formText', { name: 'text2', label: 'With Info', hint: 'Please enter your name' }) }}
-  {{ cmpt('formText', { name: 'text3', readOnly: true, value: 'James Bond', label: 'Read Only' }) }}
-  {{ cmpt('formText', { stacked: true, name: 'text4', value: 'With Value', label: 'Stacked' }) }}
-  {{ cmpt('formText', { name: 'text5', plainText: true, value: 'Jason Born', label: 'Plain Text' }) }}
-  {{ cmpt('formText', { width: '4:8', name: 'text6', label: 'Custom Width' }) }}
+  {{ cmpt('formGroupInput', { name: 'input1', label: 'Default' }) }}
+  {{ cmpt('formGroupInput', { type: 'password', name: 'input2', label: 'Password with hint', hint: 'Please enter your password above' }) }}
+  {{ cmpt('formGroupInput', { name: 'input3', readonly: true, value: 'James Bond', label: 'Read only' }) }}
+  {{ cmpt('formGroupInput', { stacked: true, name: 'input4', value: 'With Value', label: 'Stacked' }) }}
+  {{ cmpt('formGroupInput', { name: 'input5', plain: true, value: 'Jason Born', label: 'Plain input' }) }}
+  {{ cmpt('formGroupInput', { width: '4:8', name: 'input6', label: 'Custom width with tooltips', tt: 'Tooltip on input', labelTt: 'Tooltip below label', labelTtDir: 'bottom' }) }}
 </form>
 
-<h2>cmpt('formText') - Inline</h2>
+<h2>cmpt('formGroupText') - Inline</h2>
 <form class="form-inline">
-  {{ cmpt('formText', { name: 'texti1', placeHolder: 'Username', label: 'Username', labelCls: 'sr-only' }) }}
-  {{ cmpt('formText', { cls: 'mx-sm-3', name: 'texti2', type: 'password', placeHolder: 'Password', label: 'Password', labelCls: 'sr-only' }) }}
+  {{ cmpt('formGroupInput', { name: 'texti1', placeholder: 'Username', label: 'Username', labelCls: 'sr-only' }) }}
+  {{ cmpt('formGroupInput', { cls: 'mx-sm-3', name: 'texti2', type: 'password', placeholder: 'Password', label: 'Password', labelCls: 'sr-only' }) }}
   {{ cmpt('button', { title: 'Submit', context: 'primary' }) }}
 </form>
 
-<h2>cmpt('formRadio')</h2>
-{% set radios1 = [{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }, { label: 'Three', value: 'three' }] %}
+<h2>cmpt('formGroupRadio')</h2>
+{% set radios1 = [{ label: 'One', value: 'one' }, { label: 'Two', checked: true, value: 'two' }, { label: 'Three', value: 'three' }] %}
 {% set radios2 = [{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }, { label: 'Three', value: 'three' }] %}
 {% set radios3 = [{ id: 'r31', label: 'One', value: 'one' }, { id: 'r32', label: 'Two', value: 'two' }, { id: 'r33', label: 'Three', value: 'three' }] %}
 {% set radios4 = [{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }, { label: 'Three', value: 'three' }] %}
 <form>
-  {{ cmpt('formRadio', { name: 'radio1', label: 'Default', input: radios1 }) }}
-  {{ cmpt('formRadio', { name: 'radio2', label: 'Inline', inline: true, input: radios2 }) }}
-  {{ cmpt('formRadio', { name: 'radio3', label: 'Custom', custom: true, input: radios3 }) }}
-  {{ cmpt('formRadio', { name: 'radio4', label: 'Custom + Inline', custom: true, inline: true, input: radios4 }) }}
+  {{ cmpt('formGroupRadio', { name: 'radio1', label: 'Default', input: radios1 }) }}
+  {{ cmpt('formGroupRadio', { name: 'radio2', label: 'Inline', inline: true, input: radios2 }) }}
+  {{ cmpt('formGroupRadio', { name: 'radio3', label: 'Custom', custom: true, input: radios3 }) }}
+  {{ cmpt('formGroupRadio', { name: 'radio4', label: 'Custom + Inline', custom: true, inline: true, input: radios4 }) }}
 </form>
 
-<h2>cmpt('formCheckbox')</h2>
+<h2>cmpt('formGroupCheckbox')</h2>
 {% set checkboxes1 = [{ label: 'One', value: 'one' }, { label: 'Two', checked: true, value: 'two' }, { label: 'Three', value: 'three' }] %}
 {% set checkboxes2 = [{ label: 'One', value: 'one' }, { label: 'Two', checked: true, value: 'two' }, { label: 'Three', value: 'three' }] %}
 {% set checkboxes3 = [{ id: 'c31', label: 'One', value: 'one' }, { id: 'c32', label: 'Two', checked: true, value: 'two' }, { id: 'c33', label: 'Three', value: 'three' }] %}
 {% set checkboxes4 = [{ label: 'One', value: 'one' }, { label: 'Two', checked: true, value: 'two' }, { label: 'Three', value: 'three' }] %}
 <form>
-  {{ cmpt('formCheckbox', { name: 'cb1', label: 'Default', input: checkboxes1 }) }}
-  {{ cmpt('formCheckbox', { name: 'cb2', label: 'Inline', inline: true, input: checkboxes2 }) }}
-  {{ cmpt('formCheckbox', { name: 'cb3', label: 'Custom', custom: true, input: checkboxes3 }) }}
-  {{ cmpt('formCheckbox', { name: 'cb4', label: 'Custom + inline', custom: true, inline: true, input: checkboxes4 }) }}
+  {{ cmpt('formGroupCheckbox', { name: 'cb1', label: 'Default', input: checkboxes1 }) }}
+  {{ cmpt('formGroupCheckbox', { name: 'cb2', label: 'Inline', inline: true, input: checkboxes2 }) }}
+  {{ cmpt('formGroupCheckbox', { name: 'cb3', label: 'Custom', custom: true, input: checkboxes3 }) }}
+  {{ cmpt('formGroupCheckbox', { name: 'cb4', label: 'Custom + inline', custom: true, inline: true, input: checkboxes4 }) }}
 </form>
 
 <h2>cmpt('formTextarea')</h2>
 <form>
-  {{ cmpt('formTextarea', { name: 'textarea1', value: 'Value', label: 'Default Horizontal' }) }}
-  {{ cmpt('formTextarea', { name: 'textarea2', rows: 5, label: '5 Rows' }) }}
+  {{ cmpt('formGroupTextarea', { name: 'textarea1', value: 'Value', label: 'Default' }) }}
+  {{ cmpt('formGroupTextarea', { name: 'textarea2', rows: 5, label: '5 Rows' }) }}
 </form>
 
-<h2>cmpt('formSelect')</h2>
+<h2>cmpt('formGroupSelect')</h2>
 <form>
   {% set values = { option1: 'Option 1', option2: 'Option 2', option3: 'Option 3', option4: 'Option 4' } %}
-  {{ cmpt('formSelect', { name: 'select1', values: values, label: 'Default Horizontal' }) }}
-  {{ cmpt('formSelect', { name: 'select2', values: values, custom: true, label: 'Custom Select' }) }}
-  {{ cmpt('formSelect', { name: 'select3', values: values, choose: true, label: 'With choose record' }) }}
-  {{ cmpt('formSelect', { name: 'select4', values: values, choose: true, value: 'option2', label: 'With selected' }) }}
-  {{ cmpt('formSelect', { name: 'select5', values: values, rows: 3, multiple: true, value: ['option1', 'option2'], label: 'Multiple + size' }) }}
+  {{ cmpt('formGroupSelect', { name: 'select1', values: values, label: 'Default Horizontal' }) }}
+  {{ cmpt('formGroupSelect', { name: 'select2', values: values, custom: true, label: 'Custom Select' }) }}
+  {{ cmpt('formGroupSelect', { name: 'select3', values: values, choose: true, label: 'With choose record' }) }}
+  {{ cmpt('formGroupSelect', { name: 'select4', values: values, choose: true, value: 'option2', label: 'With selected' }) }}
+  {{ cmpt('formGroupSelect', { name: 'select5', values: values, rows: 3, multiple: true, value: ['option1', 'option2'], label: 'Multiple + size' }) }}
 </form>
 
-<h2>cmpt('formRange')</h2>
+<h2>cmpt('formGroupRange')</h2>
 <form>
-  {{ cmpt('formRange', { name: 'range1', value: 10 , label: 'Range' }) }}
-  {{ cmpt('formRange', { name: 'range2', value: 30, custom: true, label: 'Custom Range' }) }}
+  {{ cmpt('formGroupRange', { name: 'range1', value: 10 , label: 'Range' }) }}
+  {{ cmpt('formGroupRange', { name: 'range2', value: 30, custom: true, label: 'Custom Range' }) }}
 </form>
 
-<h2>cmpt('formFile')</h2>
+<h2>cmpt('formGroupFile')</h2>
 <form>
-  {{ cmpt('formFile', { name: 'file1', label: 'File Upload' }) }}
-  {{ cmpt('formFile', { name: 'file2', custom: true, label: 'Custom File Upload', placeHolder: 'Please select a file' }) }}
+  {{ cmpt('formGroupFile', { name: 'file1', label: 'File Upload' }) }}
+  {{ cmpt('formGroupFile', { name: 'file2', custom: true, label: 'Custom File Upload', placeHolder: 'Please select a file' }) }}
 </form>
 
 <h2>cmpt('inputGroup')</h2>
@@ -250,5 +491,138 @@ set menu = [
   {{ cmpt('inputGroup', { before: { title: 'Dropdown', context: 'dark', outline: true, type: 'dropdown', menu: menu }, name: 'ig5', value: 'here, there...', after: { title: 'Splitted', dir: 'up', align: 'right', context: 'dark', outline: true, split: true, type: 'dropdown', menu: menu }, cls: 'mb-1'  }) }}
   {{ cmpt('inputGroup', { before: 'With select', input: { type: 'select', choose: true, values: values, name: 'ig6' }, cls: 'mb-1'  }) }}
   {{ cmpt('inputGroup', { before: 'With file browser', input: { type: 'file', placeHolder: 'Choose a file', name: 'ig7' }, cls: 'mb-1'  }) }}
+  {{ cmpt('inputGroup', { before: { type: 'radio' }, name: 'ig8', value: 'Radio &amp; checkbox', after: { type: 'checkbox' }, cls: 'mb-1'  }) }}
 </form>
+
+<h2>cmpt('jumbotron')</h2>
+{{ cmpt('jumbotron', { title: 'Jumbotron', lead: 'Dolore elit adipisicing sint Lorem Lorem nisi laborum duis magna.', divider: true, body: 'Deserunt velit reprehenderit duis sint. Cillum ea voluptate amet nostrud laboris in. Velit aute ea esse sunt sint consequat elit enim voluptate laborum. Qui irure esse amet est non officia occaecat enim reprehenderit irure proident esse fugiat laborum.' }) }}
+{{ cmpt('jumbotron', { title: 'Fluid Jumbotron', fluid: true, lead: 'Exercitation consequat id fugiat excepteur et aute labore ad minim consequat veniam anim laboris reprehenderit.' }) }}
+
+<h2>cmpt('nav')</h2>
+{{
+  cmpt('grid', {
+    rows: [
+      { cls: 'mb-1', cols: ['Basic', 'Fill + Disabled', 'Vertical'] },
+      { cls: 'mb-5', cols: [
+        cmpt('nav', {
+          ulTag: true,
+          items: ['One', 'Two', 'Three']
+        }),
+        cmpt('nav', {
+          fill: true,
+          items: [{ disabled: true, title: 'One' }, { active: true, title: 'Two' }, 'Three']
+        }),
+        cmpt('nav', {
+          vertical: true,
+          items: ['One', 'Two', 'Three']
+        })
+      ]},
+      { cls: 'mb-1', cols: ['Tab', 'Pill', 'Dropdown'] },
+      { cls: 'mb-5', cols: [
+        cmpt('nav', {
+          ulTag: true,
+          tab: true,
+          items: [{ active: true, title: 'One' }, { title: 'Two' }, 'Three']
+        }),
+        cmpt('nav', {
+          pill: true,
+          items: [{ active: true, title: 'One' }, { title: 'Two' }, 'Three']
+        }),
+        cmpt('nav', {
+          ulTag: true,
+          tab: true,
+          items: [{ title: 'One' }, { active: true, title: 'Two', menu: ['One', 'Two','Three'] }, 'Three']
+        })
+      ]},
+      { cls: 'mb-1', cols: ['Tab with pane', 'Pill with pane + vertical'] },
+      { cls: 'mb-5', cols: [
+        cmpt('nav', {
+          ulTag: true,
+          tab: true,
+          items: [
+            { active: true, title: 'One', content: 'Nisi fugiat culpa officia laborum eu. Aliqua consectetur irure ea officia consectetur cillum Lorem aute amet id. Laborum eu aliqua minim ut esse in amet velit aliquip magna velit irure dolore. Labore anim qui nostrud in aliquip ea incididunt fugiat excepteur cillum sunt duis sint anim.' },
+            { title: 'Two', content: 'Veniam reprehenderit nostrud commodo aliquip et reprehenderit officia ad ea esse cupidatat. Culpa irure veniam reprehenderit ut cillum sit veniam in. Occaecat quis duis sunt ut. Eu aliquip voluptate non adipisicing culpa ullamco consectetur id pariatur aliquip eu voluptate. Anim mollit proident nisi aute enim magna exercitation mollit consequat ut veniam. Nisi Lorem qui laborum laboris est ut in sunt aute. Culpa anim amet consequat qui deserunt.' },
+            { title: 'Three', content: 'Sunt mollit ad ut elit nulla amet aliquip nisi id pariatur non aliquip enim consectetur. Qui reprehenderit voluptate enim laboris ex adipisicing. Sunt esse mollit incididunt consectetur do reprehenderit elit Lorem adipisicing laborum nostrud consequat magna exercitation. Eu voluptate Lorem veniam magna nostrud nisi ipsum. Irure proident duis labore sit do ad esse commodo. Veniam culpa id tempor occaecat. Aliquip cupidatat id elit ut aute id.' }
+          ]
+        }),
+        cmpt('nav', {
+          pill: true,
+          vertical: true,
+          items: [
+            { active: true, title: 'One', content: 'Nisi fugiat culpa officia laborum eu. Aliqua consectetur irure ea officia consectetur cillum Lorem aute amet id. Laborum eu aliqua minim ut esse in amet velit aliquip magna velit irure dolore. Labore anim qui nostrud in aliquip ea incididunt fugiat excepteur cillum sunt duis sint anim.' },
+            { title: 'Two', content: 'Veniam reprehenderit nostrud commodo aliquip et reprehenderit officia ad ea esse cupidatat. Culpa irure veniam reprehenderit ut cillum sit veniam in. Occaecat quis duis sunt ut. Eu aliquip voluptate non adipisicing culpa ullamco consectetur id pariatur aliquip eu voluptate. Anim mollit proident nisi aute enim magna exercitation mollit consequat ut veniam. Nisi Lorem qui laborum laboris est ut in sunt aute. Culpa anim amet consequat qui deserunt.' },
+            { title: 'Three', content: 'Sunt mollit ad ut elit nulla amet aliquip nisi id pariatur non aliquip enim consectetur. Qui reprehenderit voluptate enim laboris ex adipisicing. Sunt esse mollit incididunt consectetur do reprehenderit elit Lorem adipisicing laborum nostrud consequat magna exercitation. Eu voluptate Lorem veniam magna nostrud nisi ipsum. Irure proident duis labore sit do ad esse commodo. Veniam culpa id tempor occaecat. Aliquip cupidatat id elit ut aute id.' }
+          ]
+        })
+      ]}
+    ]
+  })
+}}
+
+<h2>cmpt('progress')</h2>
+{{ cmpt('grid', {
+  rows: [
+    ['Default', 'Context', 'Custom Height', 'Label', 'Striped', 'Animated'],
+    {
+      cls: 'mb-2',
+      cols: [
+        cmpt('progress', { value: 20 }),
+        cmpt('progress', { value: 40, context: 'success' }),
+        cmpt('progress', { value: 60, height: 1 }),
+        cmpt('progress', { value: 80, label: true }),
+        cmpt('progress', { value: 90, context: 'warning', striped: true }),
+        cmpt('progress', { value: 90, context: 'danger', striped: true, animated: true })
+      ]
+    },
+    [
+      cmpt('progress', { bar: [
+        { value: 15, label: true },
+        { value: 20, context: 'success', label: true },
+        { value: 10, context: 'warning', label: 'Warning!' },
+        { value: 30, context: 'danger', label: 'Boom (%d%%)!', striped: true, animated: true }
+      ]})
+    ]
+  ]
+}) }}
+
+<h2>cmpt('pagination')</h2>
+{{ cmpt('pagination', { page: [1, 2, 3]  }) }}
+{{ cmpt('pagination', { page: [1, { text: 2, active: true }, 3], prev: true, next: { disabled: true }, arrow: true, align: 'center'  }) }}
+
+<h2>cmpt('listGroup')</h2>
+{{
+  cmpt('grid', {
+    rows: [
+      ['Default', 'Context', 'Clickable', 'With Badge'],
+      [
+        cmpt('listGroup', {
+          items: ['One', 'Two', 'Three']
+        }),
+        cmpt('listGroup', {
+          items: [
+            { text: 'One', context: 'success' },
+            { text: 'Two', context: 'warning' },
+            { text: 'Three', context: 'danger' }
+          ]
+        }),
+        cmpt('listGroup', {
+          items: [
+            { text: 'One', href: true },
+            { text: 'Active', href: true, active: true },
+            { text: 'Disabled', href: true, disabled: true }
+          ]
+        }),
+        cmpt('listGroup', {
+          items: [
+            { text: 'One', badge: 10 },
+            { text: 'Two', badge: { text: 20, context: 'primary' } },
+            { text: 'Three', badge: { text: 'N/A', pill: true, context: 'danger' } }
+          ]
+        })
+      ]
+    ]
+  })
+}}
+
+
 {% endblock %}
