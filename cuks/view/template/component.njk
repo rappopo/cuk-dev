@@ -498,6 +498,68 @@ set menu = [
 {{ cmpt('jumbotron', { title: 'Jumbotron', lead: 'Dolore elit adipisicing sint Lorem Lorem nisi laborum duis magna.', divider: true, body: 'Deserunt velit reprehenderit duis sint. Cillum ea voluptate amet nostrud laboris in. Velit aute ea esse sunt sint consequat elit enim voluptate laborum. Qui irure esse amet est non officia occaecat enim reprehenderit irure proident esse fugiat laborum.' }) }}
 {{ cmpt('jumbotron', { title: 'Fluid Jumbotron', fluid: true, lead: 'Exercitation consequat id fugiat excepteur et aute labore ad minim consequat veniam anim laboris reprehenderit.' }) }}
 
+<h2>cmpt('modal')</h2>
+{{
+  cmpt('modal', {
+    id: 'modal1',
+    title: 'Default',
+    content: '...'
+  })
+}}
+{{
+  cmpt('modal', {
+    id: 'modal2',
+    title: 'No Footer, No Dismiss',
+    noFooter: true,
+    noDismiss: true,
+    content: '...'
+  })
+}}
+{{
+  cmpt('modal', {
+    id: 'modal3',
+    title: 'Custom Buttons',
+    buttons: [
+      { context: 'success', title: 'Success' },
+      { context: 'primary', title: 'OK Boss' },
+      { context: 'secondary', title: 'Cancel', triggerDismiss: true }
+    ],
+    content: '...'
+  })
+}}
+{{
+  cmpt('modal', {
+    id: 'modal4',
+    vcenter: true,
+    title: 'Vertically centered',
+    content: '...'
+  })
+}}
+{{
+  cmpt('modal', {
+    id: 'modal5',
+    size: 'lg',
+    title: 'Big',
+    content: '...'
+  })
+}}
+{{
+  cmpt('modal', {
+    id: 'modal6',
+    size: 'sm',
+    title: 'Small',
+    content: '...'
+  })
+}}
+<p>
+  {{ cmpt('button', { data: { toggle: 'modal', target: '#modal1' }, title: 'Default' }) }}
+  {{ cmpt('button', { data: { toggle: 'modal', target: '#modal2' }, title: 'No Footer' }) }}
+  {{ cmpt('button', { data: { toggle: 'modal', target: '#modal3' }, title: 'Custom Buttons' }) }}
+  {{ cmpt('button', { data: { toggle: 'modal', target: '#modal4' }, title: 'Centered' }) }}
+  {{ cmpt('button', { data: { toggle: 'modal', target: '#modal5' }, title: 'Big' }) }}
+  {{ cmpt('button', { data: { toggle: 'modal', target: '#modal6' }, title: 'Small' }) }}
+</p>
+
 <h2>cmpt('nav')</h2>
 {{
   cmpt('grid', {
@@ -546,8 +608,8 @@ set menu = [
           ]
         }),
         cmpt('nav', {
-          pill: true,
           vertical: true,
+          pill: true,
           items: [
             { active: true, title: 'One', content: 'Nisi fugiat culpa officia laborum eu. Aliqua consectetur irure ea officia consectetur cillum Lorem aute amet id. Laborum eu aliqua minim ut esse in amet velit aliquip magna velit irure dolore. Labore anim qui nostrud in aliquip ea incididunt fugiat excepteur cillum sunt duis sint anim.' },
             { title: 'Two', content: 'Veniam reprehenderit nostrud commodo aliquip et reprehenderit officia ad ea esse cupidatat. Culpa irure veniam reprehenderit ut cillum sit veniam in. Occaecat quis duis sunt ut. Eu aliquip voluptate non adipisicing culpa ullamco consectetur id pariatur aliquip eu voluptate. Anim mollit proident nisi aute enim magna exercitation mollit consequat ut veniam. Nisi Lorem qui laborum laboris est ut in sunt aute. Culpa anim amet consequat qui deserunt.' },
@@ -556,6 +618,65 @@ set menu = [
         })
       ]}
     ]
+  })
+}}
+
+<h2>cmpt('navbar')</h2>
+{{
+  cmpt('grid', {
+    rows: [{
+      cls: 'mb-2',
+      cols:[
+        { width: 2, content: 'Default' },
+        { width: 10, content: cmpt('navbar', {
+          content: [
+            { type: 'brand', content: 'My Website' },
+            { type: 'nav', items: ['One', 'Two', 'Three'], cls: 'mr-auto' },
+            { type: 'form', content: [{ name: 'search', placeholder: 'Search', cls: 'mr-2' }, { type: 'button', title: 'Search' }]}
+          ]
+        }) }
+      ]
+    },{
+      cls: 'mb-2',
+      cols:[
+        { width: 2, content: 'Dark' },
+        { width: 10, content: cmpt('navbar', {
+          dark: true,
+          context: 'primary',
+          content: [
+            { type: 'brand', content: 'My Website' },
+            { type: 'nav', items: ['One', 'Two', 'Three'], cls: 'mr-auto' },
+            { type: 'form', content: [{ name: 'search', placeholder: 'Search', cls: 'mr-2' }, { type: 'button', title: 'Search', context: 'danger' }]}
+          ]
+        }) }
+      ]
+    },{
+      cls: 'mb-2',
+      cols:[
+        { width: 2, content: 'Collapse right' },
+        { width: 10, content: cmpt('navbar', {
+          collapse: 'right',
+          content: [
+            { type: 'brand', content: 'My Website' },
+            { collapse: true, type: 'nav', items: ['One', 'Two', { title: 'Three', menu: ['#1', '#2' ]} ], cls: 'mr-auto' },
+            { collapse: true, type: 'form', content: [{ name: 'search', placeholder: 'Search', cls: 'mr-2' }, { type: 'button', title: 'Search', context: 'danger' }]}
+          ]
+        }) }
+      ]
+    },{
+      cls: 'mb-2',
+      cols:[
+        { width: 2, content: 'Collapse left' },
+        { width: 10, content: cmpt('navbar', {
+          collapse: 'left',
+          content: [
+            { type: 'brand', content: 'My Website' },
+            { collapse: true, type: 'nav', items: ['One', 'Two', 'Three'], cls: 'mr-auto' },
+            { collapse: true, type: 'form', content: [{ name: 'search', placeholder: 'Search', cls: 'mr-2' }, { type: 'button', title: 'Search', context: 'danger' }]}
+          ]
+        }) }
+      ]
+    }]
   })
 }}
 
@@ -624,5 +745,55 @@ set menu = [
   })
 }}
 
+<h2>cmpt('table')</h2>
+<p>Default</p>
+{% set header = [
+  ['Head 21', 'Head 22', 'Head 23']
+] %}
+{% set body = [
+  ['Body 11', 'Body 12', 'Body 13'],
+  ['Body 21', 'Body 22', 'Body 23'],
+  ['Body 31', 'Body 32', 'Body 33']
+] %}
+{% set footer = [
+  ['Foot 11', 'Foot 12', 'Foot 13']
+] %}
+{{
+  cmpt('grid', {
+    rows: [
+      ['Dark', 'Border'],
+      [
+        cmpt('table', {
+          dark: true,
+          header: header,
+          body: body,
+          footer: footer
+        }),
+        cmpt('table', {
+          border: true,
+          header: header,
+          body: body,
+          footer: footer
+        })
+      ],
+      ['Strip', 'No Border + Hover'],
+      [
+        cmpt('table', {
+          strip: true,
+          header: header,
+          body: body,
+          footer: footer
+        }),
+        cmpt('table', {
+          noBorder: true,
+          hover: true,
+          header: header,
+          body: body,
+          footer: footer
+        })
+      ]
+    ]
+  })
+}}
 
 {% endblock %}

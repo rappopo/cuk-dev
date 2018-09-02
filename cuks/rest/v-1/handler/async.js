@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function(cuk) {
+module.exports = function (cuk) {
   const { _ } = cuk.pkg.core.lib
   const result = require('../_result.json')
 
@@ -14,7 +14,7 @@ module.exports = function(cuk) {
         handler: async ctx => {
           try {
             return await getResult()
-          } catch(e) {
+          } catch (e) {
             throw e
           }
         }

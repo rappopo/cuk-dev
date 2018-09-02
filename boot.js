@@ -2,7 +2,7 @@
 
 const replify = require('replify')
 
-module.exports = function(cuk) {
+module.exports = function (cuk) {
   const { path, _, helper } = cuk.pkg.core.lib
   const pkg = cuk.pkg.dev
 
