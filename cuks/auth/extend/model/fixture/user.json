@@ -1,6 +1,6 @@
 [{
   "_id": "weksweks",
-  "site": "*",
+  "site": "localhost",
   "username": "weksweks",
   "passwd": "test",
   "first_name": "Mr",
