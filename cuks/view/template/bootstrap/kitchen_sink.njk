@@ -1,11 +1,11 @@
 {% extends 'view:/layout' %}
 
 {% block style %}
-<link rel="stylesheet" href="{{ config('static').mount }}{{ config('dev').mount }}/bootstrap/kitchen_sink.css">
+<link rel="stylesheet" href="{{ helper('core:config')('static', 'mount', '') }}{{ helper('core:config')('dev', 'mount', '') }}/bootstrap/kitchen_sink.css">
 {% endblock %}
 
 {% block script %}
-<script src="{{ config('static').mount }}{{ config('dev').mount }}/bootstrap/kitchen_sink.js"></script>
+<script src="{{ helper('core:config')('static', 'mount', '') }}{{ helper('core:config')('dev', 'mount', '') }}/bootstrap/kitchen_sink.js"></script>
 {% endblock %}
 
 {% block navbar %}
