@@ -1,9 +1,9 @@
 [{
-  "_id": "weksweks",
-  "site": "default",
-  "username": "weksweks",
+  "_id": "tester",
+  "site_id": "default",
+  "username": "tester",
   "passwd": "test",
   "first_name": "Mr",
-  "last_name": "Weksweks",
+  "last_name": "Tester",
   "active": true
 }]
